@@ -1,0 +1,24 @@
+version: 0.2.2
+levels:
+  low:
+    examples:
+    - documentation
+    - local_reversible_change
+    action: 已有授权范围内直接执行并验证。
+  medium:
+    examples:
+    - public_api_change
+    - dependency_change
+    - schema_migration_draft
+    action: 记录影响、兼容性和回退方案；在已有授权范围内准备并验证。
+  high:
+    examples:
+    - production_write
+    - irreversible_delete
+    - permission_expansion
+    - external_publication
+    action: 先准备可审查差异；实际执行须有覆盖该对象和动作的明确授权。
+rules:
+- 现有授权有效，不重复索取相同许可。
+- 不将密码、令牌、生产数据写入任务或知识；使用脱敏样例。
+- 不自动安装重依赖，不自动运行生产迁移。

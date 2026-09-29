@@ -1,0 +1,30 @@
+schema_version: '0.1'
+id: EXP-TEMPLATE
+status: planned
+proposal:
+  path: UNSET
+  revision_or_sha256: UNSET
+protocol_candidate:
+  path: UNSET
+  revision_or_sha256: UNSET
+baseline:
+  path: UNSET
+  revision_or_sha256: UNSET
+test_cases:
+- path: UNSET
+  revision_or_sha256: UNSET
+controls:
+- 'UNSET: same inputs, source, evaluation and execution conditions'
+repeats: 1
+stop_conditions:
+- 'UNSET: safety or regression limit'
+result:
+  outcome: not_run
+  baseline_results: []
+  candidate_results: []
+  metrics: []
+  failures: []
+  limitations:
+  - Not executed
+  evaluator: null
+  evaluated_at: null

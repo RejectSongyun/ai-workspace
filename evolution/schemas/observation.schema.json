@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "analyzed",
+        "archived"
+      ]
+    },
+    "failure": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Requirement"
+                },
+                "subtype": {
+                  "enum": [
+                    "misunderstood_intent",
+                    "missing_acceptance_criteria",
+                    "unresolved_ambiguity",
+                    "constraint_omission"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Context"
+                },
+                "subtype": {
+                  "enum": [
+                    "missing_relevant_context",
+                    "irrelevant_retrieval",
+                    "stale_context",
+                    "source_conflict",
+                    "context_overload"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Reasoning"
+                },
+                "subtype": {
+                  "enum": [
+                    "unsupported_assumption",
+                    "incorrect_inference",
+                    "missed_alternative",
+                    "causal_misattribution",
+                    "overgeneralization"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Implementation"
+                },
+                "subtype": {
+                  "enum": [
+                    "incorrect_behavior",
+                    "incomplete_change",
+                    "verification_gap",
+                    "compatibility_regression",
+                    "error_handling_gap"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Scope"
+                },
+                "subtype": {
+                  "enum": [
+                    "out_of_scope_change",
+                    "unauthorized_expansion",
+                    "protected_content_modified",
+                    "unnecessary_change"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Knowledge"
+                },
+                "subtype": {
+                  "enum": [
+                    "false_retrieval",
+                    "stale_knowledge",
+                    "unsupported_promotion",
+                    "provenance_loss",
+                    "duplicate_or_conflicting_knowledge"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "const": "Protocol"
+                },
+                "subtype": {
+                  "enum": [
+                    "ambiguous_rule",
+                    "conflicting_rules",
+                    "missing_gate",
+                    "excessive_process_cost",
+                    "self_reinforcing_drift",
+                    "approval_bypass",
+                    "non_general_rule"
+                  ]
+                }
+              },
+              "required": [
+                "category",
+                "subtype"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "production_trace",
+              "human_review",
+              "source_diff",
+              "measurement",
+              "synthetic"
+            ]
+          },
+          "reference": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "revision_or_sha256": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "revision_or_sha256"
+            ],
+            "additionalProperties": false
+          },
+          "project_alias": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "task_or_case": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observed_at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "producer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "independent_event_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "redaction": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "reference",
+          "project_alias",
+          "task_or_case",
+          "observed_at",
+          "producer",
+          "independent_event_id",
+          "redaction"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "impact": {
+      "type": "object",
+      "properties": {
+        "severity": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "affected_tasks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "severity",
+        "affected_tasks",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "suspected_cause": {
+      "type": "object",
+      "properties": {
+        "hypothesis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "enum": [
+            "unknown",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "hypothesis",
+        "confidence",
+        "verified"
+      ],
+      "additionalProperties": false
+    },
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independent_events": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "counterexamples": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "alternative_causes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "generality": {
+          "type": "string",
+          "minLength": 1
+        },
+        "project_only": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "pattern",
+        "independent_events",
+        "coverage",
+        "counterexamples",
+        "alternative_causes",
+        "generality",
+        "project_only"
+      ],
+      "additionalProperties": false
+    },
+    "observation_kind": {
+      "enum": [
+        "failure",
+        "opportunity",
+        "pattern"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "status",
+    "failure",
+    "summary",
+    "evidence",
+    "impact",
+    "suspected_cause",
+    "analysis"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "failure": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "failure"
+        ]
+      },
+      "then": {
+        "required": [
+          "observation_kind"
+        ],
+        "properties": {
+          "observation_kind": {
+            "enum": [
+              "opportunity",
+              "pattern"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

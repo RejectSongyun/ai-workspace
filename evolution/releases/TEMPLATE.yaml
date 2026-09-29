@@ -1,0 +1,36 @@
+schema_version: '0.1'
+id: REL-TEMPLATE
+status: draft
+protocol_version: UNSET
+baseline:
+  path: UNSET
+  revision_or_sha256: UNSET
+artifact_manifest:
+  path: UNSET
+  revision_or_sha256: UNSET
+accepted_changes: []
+rejected_changes: []
+deprecated_changes: []
+evidence:
+- path: UNSET
+  revision_or_sha256: UNSET
+evaluation:
+  experiments: []
+  benchmarks: []
+  outcome: not_run
+  exception_reason: null
+  residual_risk: UNSET
+human_approval:
+  decision: pending
+  reviewer: null
+  reviewed_at: null
+  source_reference: null
+  approved_artifact_sha256: null
+  scope: 'UNSET: precise release scope'
+  rationale: null
+  exception_approved: false
+compatibility: UNSET
+adoption: 'UNSET: explicit project adoption; no automatic upgrade'
+rollback: 'UNSET: prior version, trigger and authorized action'
+applied_artifact_sha256: null
+released_at: null

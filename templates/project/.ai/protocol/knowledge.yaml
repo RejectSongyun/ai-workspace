@@ -1,0 +1,48 @@
+version: 0.2.2
+lifecycle:
+- Session
+- Task
+- Candidate
+- ProjectKB
+storage:
+  Session: .ai/runtime/
+  Task: .ai/tasks/
+  Candidate: .ai/knowledge/candidates/
+  ProjectKB: .ai/knowledge/approved/
+eligible:
+- stable_architecture
+- approved_decision
+- reusable_constraint
+- verified_operational_fact
+exclude:
+- raw_logs
+- secrets
+- unverified_inferences
+- transient_failures
+- business_rules_from_other_projects
+promotion:
+  automatic: false
+  task_approval_implies_knowledge_approval: false
+  required:
+  - source_task
+  - evidence
+  - scope
+  - reviewed_by
+  - reviewed_at
+  - approval_reference
+  - approved_content
+  procedure: 先生成候选与拟修改差异；人工明确批准该内容后才更新 KB、正式规则、ADR 和权威索引。
+  versioning: 保留来源任务及旧版本；过时记录标记 deprecated 或 superseded 并链接替代项。
+retrieval: 读取前检查适用范围、状态和证据是否仍与当前代码一致。
+global_promotion: Protocol evolution is separate from project knowledge promotion; see evolution.yaml.
+provenance:
+- source_task
+- source_paths
+- source_revision_or_hash
+- observed_at
+- producer
+- approval_reference
+staleness: 依赖的 Source 变化时生成知识标记 stale 或待核验；保留旧记录，复核证据后才恢复有效。
+canonical: AI 推断不能覆盖人工 canonical knowledge；冲突作为候选和偏差报告。
+history: 保留历史和替代关系；上下文仅检索当前任务必要片段。
+insight_candidates: Insight 只提供候选来源；knowledge.yaml 的 provenance、人工晋升和 stale 规则不变。

@@ -1,0 +1,18 @@
+id: CANDIDATE-ID
+status: pending
+source_task: TASK-ID
+scope: ''
+claim: ''
+evidence: []
+proposed_targets: []
+approval:
+  reviewed_by: null
+  reviewed_at: null
+  approval_reference: null
+  approved_content: null
+supersedes: null
+provenance:
+  source_paths: []
+  source_revision_or_hash: null
+  observed_at: null
+  producer: null

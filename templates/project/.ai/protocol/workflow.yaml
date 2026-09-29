@@ -1,0 +1,50 @@
+version: 0.2.2
+initial: DRAFT
+transitions:
+  DRAFT:
+  - READY
+  - CANCELLED
+  READY:
+  - RUNNING
+  - CANCELLED
+  RUNNING:
+  - AI_COMPLETED
+  - BLOCKED
+  - CANCELLED
+  BLOCKED:
+  - RUNNING
+  - CANCELLED
+  AI_COMPLETED:
+  - REVIEW
+  REVIEW:
+  - APPROVED
+  - REVISION
+  - CANCELLED
+  REVISION:
+  - RUNNING
+  - CANCELLED
+  APPROVED:
+  - CLOSED
+  - REVISION
+  CLOSED: []
+  CANCELLED: []
+gates:
+  READY: 目标、范围、验收条件、风险已记录；不为低风险工作重复索取许可。
+  RUNNING: 按索引检索上下文，记录 context.yaml，保护人工修改。
+  AI_COMPLETED: 记录 diff、验证证据、局限、回退方法；不表示人工已验收。
+  APPROVED: 有明确人工验收证据，记录人员、时间、范围和消息引用。
+  CLOSED: 交付已定位；候选可保持 pending 或 rejected，不要求必须晋升知识。
+steps:
+- specify
+- retrieve
+- plan
+- implement
+- verify
+- review
+- deliver
+revision: 保留反馈历史，重新读取人工修改后的文件，更新计划后再执行。
+git: commit、push、merge 按已有授权执行；人工验收不等于自动授权发布。
+scope_gate: 修改前明确 scope/out_of_scope，检索相关架构、规则、ADR；扩大范围须有需求或证据依据并更新任务记录。
+result_state: 人工批准前所有 AI 结果均为 candidate；文件写入和验证成功不等于批准。
+protocol_evolution: evolution.yaml
+post_delivery: 可选 Insight Pass 见 insight.yaml；独立记录，不增加主任务状态或 CLOSED 门禁。

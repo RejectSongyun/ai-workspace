@@ -1,0 +1,134 @@
+version: '0.1'
+comparison:
+  unit: matched task/case, protocol revision and observation window
+  record:
+  - baseline
+  - candidate
+  - sample_size
+  - numerator
+  - denominator
+  - measurement_method
+  - coverage
+  - uncertainty
+  - missing_reason
+  zero_denominator: null/not_applicable, never zero or perfect score
+  missing: null + reason; never impute improvement
+  aggregation: Report per-context values, denominator-weighted rates and median/p95 costs where sample size permits;
+    retain failures, cancellations and exclusions with reasons.
+  controls: Fix task input, source revision, evaluation rubric, tool permissions and execution conditions; log model/tool
+    versions as experimental controls without embedding them in protocol policy.
+  direction: Cost reduction is desirable only within quality/reliability guardrails; more clarification may be justified.
+  thresholds: Proposal-specific preregistered budgets and minimum coverage; do not invent universal pass rates.
+groups:
+  Quality:
+    task_success_rate:
+      definition: accepted_tasks / reviewed_tasks
+      unit: fraction
+      preferred_direction: higher
+      notes: Acceptance against predeclared criteria; include revised tasks and report first-pass separately.
+    human_correction_rate:
+      definition: tasks_requiring_human_correction / reviewed_tasks
+      unit: fraction
+      preferred_direction: lower
+      notes: Substantive requirement/design/implementation corrections; exclude stylistic preference unless specified.
+    rule_violation_rate:
+      definition: confirmed_violated_applicable_rule_checks / evaluated_applicable_rule_checks
+      unit: fraction
+      preferred_direction: lower
+      notes: Versioned applicable rules and detection coverage; also report severity and affected tasks.
+    regression_rate:
+      definition: baseline_passing_cases_that_fail_candidate / baseline_passing_cases_retested
+      unit: fraction
+      preferred_direction: lower
+      notes: Same cases and conditions; disclose missing retests.
+    scope_violation_rate:
+      definition: tasks_with_confirmed_out_of_scope_change / tasks_with_reviewed_diff
+      unit: fraction
+      preferred_direction: lower
+      notes: Compare actual changes with scope authorized at execution time; later authorization does not erase
+        incident.
+  Efficiency:
+    context_tokens:
+      definition: sum(input_context_tokens_per_model_call)
+      unit: tokens
+      preferred_direction: lower
+      notes: Includes repeated input; record tokenizer/meter and coverage; compare only compatible measurements.
+    source_files_read:
+      definition: count(distinct_source_paths_whose_content_was_read)
+      unit: files
+      preferred_direction: lower
+      notes: Per task; report repeated reads separately; listing paths is not reading content.
+    tool_calls:
+      definition: count(attempted_tool_invocations)
+      unit: calls
+      preferred_direction: lower
+      notes: Include failed/retried invocations; preserve logical operation grouping.
+    iterations:
+      definition: count(implementation_verification_revision_cycles)
+      unit: cycles
+      preferred_direction: lower
+      notes: First cycle counts as one; define boundaries before trial.
+    completion_time:
+      definition: delivered_at - work_started_at
+      unit: seconds
+      preferred_direction: lower
+      notes: Wall clock including waits; additionally report active time and human wait separately.
+  Knowledge:
+    hit_rate:
+      definition: retrieval_episodes_with_verified_relevant_item / evaluated_retrieval_episodes
+      unit: fraction
+      preferred_direction: higher
+      notes: Relevance independently reviewed for current task; no-result episodes stay in denominator.
+    stale_rate:
+      definition: retrieved_items_invalid_at_use_time / retrieved_items_checked_for_freshness
+      unit: fraction
+      preferred_direction: lower
+      notes: Count instances; report freshness-check coverage.
+    false_retrieval_rate:
+      definition: retrieved_items_irrelevant_or_incorrect / retrieved_items_reviewed
+      unit: fraction
+      preferred_direction: lower
+      notes: Separate irrelevant, incorrect and unknown; do not label unreviewed items correct.
+    promotion_accuracy:
+      definition: audited_promotions_supported_and_correctly_scoped / audited_promotions
+      unit: fraction
+      preferred_direction: higher
+      notes: Independent post-promotion audit; human approval alone does not prove correctness.
+  Human Cost:
+    review_time:
+      definition: sum(active_human_review_intervals)
+      unit: seconds
+      preferred_direction: lower
+      notes: Exclude unattended waiting; report measurement method.
+    clarification_count:
+      definition: count(distinct_questions_requiring_human_answer)
+      unit: questions
+      preferred_direction: lower
+      notes: Count questions, not messages; bundle does not reduce count.
+    intervention_count:
+      definition: count(distinct_human_correction_or_override_events)
+      unit: events
+      preferred_direction: lower
+      notes: One event may affect many files; distinguish planned approval from corrective intervention.
+  Context Investment:
+    context_precision:
+      definition: reviewed_relevant_provided_items / reviewed_provided_items
+      unit: fraction
+      preferred_direction: higher
+      notes: 以固定 retrieval episode 和 item 粒度计算；actually_used 仅代理，不等于 relevant。明确抽样、未知与独立复核覆盖率。
+    context_recall:
+      definition: provided_relevant_items / retrospectively_identified_required_items
+      unit: fraction
+      preferred_direction: higher
+      notes: 分母是已发现 required 的代理集合，不代表全库真实 recall；结合 missing/decisive 与人工反馈；披露未发现项偏差。
+    context_cost_efficiency:
+      definition: matched quality/reliability outcomes alongside context_tokens, source_files_read, tool_calls,
+        latency and human_effort
+      unit: multi_dimension
+      preferred_direction: quality_guarded_tradeoff
+      notes: 复用原计数口径，总成本包括 Harvest；另报 Primary/Harvest 分项和额外预算/实际消耗，未知不填零；不计算未经验证的加权 ROI。
+    reuse_outcomes:
+      definition: 后续任务引用候选或批准知识后的已核验节省、质量变化与失败证据
+      unit: evidence
+      preferred_direction: verified_value
+      notes: 记录观察窗口、来源 Task、候选/批准状态、归因不确定性；产出数量和批准率不代表复利。

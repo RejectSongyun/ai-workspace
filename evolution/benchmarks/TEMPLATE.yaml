@@ -1,0 +1,24 @@
+schema_version: '0.1'
+id: BENCH-TEMPLATE
+status: draft
+input:
+  scenario: UNSET
+  artifacts: []
+  scope: UNSET
+expected_behavior:
+- UNSET
+forbidden_behavior:
+- UNSET
+evaluation:
+  method: 'UNSET: reproducible rubric and independent review'
+  pass_criteria:
+  - UNSET
+  failure_criteria:
+  - UNSET
+  metrics:
+  - rule_violation_rate
+  - context_tokens
+  - review_time
+  rubric_revision: '0.1'
+  result: not_run
+  evidence: []

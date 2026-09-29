@@ -1,0 +1,16 @@
+schema_version: '0.1'
+task: TASK-ID
+retrieval_episode: UNSET
+source_manifest: .ai/tasks/TASK-ID/context.yaml
+provided: []
+actually_used: []
+missing: []
+unnecessary: []
+decisive: []
+retrieval_quality:
+  assessment: unknown
+  method: 'UNSET: 人工抽样或 Agent 自报代理，不是全库 ground truth'
+  coverage: UNSET
+  uncertainty: 'UNSET: 未知项和缺失原因'
+  evidence: []
+recommendations: []

@@ -1,0 +1,17 @@
+version: 0.2.2
+kind: protocol-evolution-boundary
+principle: 项目可以为 AIP 提供证据，但项目不能直接修改 AIP。
+project_learning: Session -> Task -> Human Review -> Project Knowledge
+protocol_learning: Projects -> Evidence -> Observation -> Proposal -> Benchmark -> Human Approval -> AIP Version
+stable_write_gate: AI may Observe/Analyze/Propose/Evaluate and prepare isolated candidates; no self-approval or
+  direct stable edits. Apply only exact human-approved release content.
+project_rule_promotion: Project-specific rules never directly become universal rules; send evidence for abstraction
+  and evaluation.
+governance_locator:
+  workspace_relative_path: evolution/governance.yaml
+  base: AI workspace root, NOT project repository root
+  unavailable: Keep evidence in project Task; do not guess path, load remote rules or bypass approval.
+context: Do not load observations/proposals/experiments into ordinary project context; use fixed released snapshot.
+adoption: Existing project versions remain pinned; new release does not authorize automatic project upgrade.
+insight_entry: Production Task -> Insight Harvest -> Context Critique / Failure Analysis / Pattern Discovery ->
+  AIP Observation -> Proposal -> Experiment/Benchmark -> Human Approval -> Release；insight.yaml 定义前置候选路由。

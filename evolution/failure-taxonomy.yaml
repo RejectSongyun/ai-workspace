@@ -1,0 +1,50 @@
+version: '0.1'
+categories:
+  Requirement:
+  - misunderstood_intent
+  - missing_acceptance_criteria
+  - unresolved_ambiguity
+  - constraint_omission
+  Context:
+  - missing_relevant_context
+  - irrelevant_retrieval
+  - stale_context
+  - source_conflict
+  - context_overload
+  Reasoning:
+  - unsupported_assumption
+  - incorrect_inference
+  - missed_alternative
+  - causal_misattribution
+  - overgeneralization
+  Implementation:
+  - incorrect_behavior
+  - incomplete_change
+  - verification_gap
+  - compatibility_regression
+  - error_handling_gap
+  Scope:
+  - out_of_scope_change
+  - unauthorized_expansion
+  - protected_content_modified
+  - unnecessary_change
+  Knowledge:
+  - false_retrieval
+  - stale_knowledge
+  - unsupported_promotion
+  - provenance_loss
+  - duplicate_or_conflicting_knowledge
+  Protocol:
+  - ambiguous_rule
+  - conflicting_rules
+  - missing_gate
+  - excessive_process_cost
+  - self_reinforcing_drift
+  - approval_bypass
+  - non_general_rule
+usage:
+  classification: Choose primary category/subtype by evidenced failure mechanism; secondary labels optional. Unknown
+    cause is null, not fabricated.
+  scope: Categories describe AI collaboration failures, not project architecture or implementation technology.
+  extension: Propose taxonomy changes through the same protocol evolution gate; never insert project-specific subtype
+    ad hoc.

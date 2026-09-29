@@ -1,0 +1,7 @@
+task: TASK-ID
+selected: []
+# 每个 selected 项包含 path、reason、evidence_revision（commit 或文件哈希）。
+searches: []
+expansion_reason: null
+stale_entries: []
+human_overrides: []

@@ -1,0 +1,36 @@
+version: 0.2.2
+checks:
+- 验收条件是否有对应实现与证据？
+- 是否保留人工修改并遵循已批准规则？
+- 是否有敏感信息、权限、事务、数据兼容性或回退风险？
+- 测试与静态检查是否适合变更；未执行的检查是否明确标记？
+- 候选知识是否与正式知识分开？
+feedback_types:
+- requirement_correction
+- design_correction
+- implementation_correction
+- constraint_correction
+- direct_edit
+approval_record:
+- reviewer
+- timestamp
+- scope
+- decision
+- evidence_reference
+self_approval: prohibited
+new_human_edits: 读取新 diff；不覆盖、不自动恢复 AI 旧实现。
+elevated_review:
+  targets:
+  - Architecture
+  - Rule
+  - ADR
+  required:
+  - exact_diff
+  - rationale
+  - affected_scope
+  - source_evidence
+  - compatibility_impact
+  - rollback
+  - responsible_human_approval
+  gate: 项目负责人或该领域授权审核人明确批准精确内容后才成为 canonical；普通任务验收不替代此审核。已有明确授权可复用，记录来源。
+protocol_evolution: evolution.yaml

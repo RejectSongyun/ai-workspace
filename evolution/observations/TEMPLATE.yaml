@@ -1,0 +1,36 @@
+schema_version: '0.1'
+id: OBS-TEMPLATE
+status: draft
+failure:
+  category: Protocol
+  subtype: ambiguous_rule
+summary: 'UNSET: observed symptom, not a rule'
+evidence:
+- id: EVIDENCE-TEMPLATE
+  kind: production_trace
+  reference:
+    path: UNSET
+    revision_or_sha256: UNSET
+  project_alias: null
+  task_or_case: UNSET
+  observed_at: UNSET
+  producer: UNSET
+  independent_event_id: UNSET
+  redaction: 'UNSET: confirm no secrets'
+impact:
+  severity: low
+  affected_tasks: 0
+  description: UNSET
+suspected_cause:
+  hypothesis: UNSET
+  confidence: unknown
+  verified: false
+analysis:
+  pattern: UNSET
+  independent_events: 0
+  coverage: UNSET
+  counterexamples: []
+  alternative_causes: []
+  generality: UNSET
+  project_only: true
+observation_kind: failure

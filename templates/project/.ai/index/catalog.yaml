@@ -1,0 +1,12 @@
+version: '0.1'
+status: bootstrap
+entries:
+  - id: project-rules
+    tags: [all]
+    paths: [.ai/rules/project.md, .ai/rules/business.md]
+  - id: architecture
+    tags: [architecture]
+    paths: [.ai/architecture/overview.md]
+modules: []
+features: []
+notes: '新增模块条目记录 tags、paths、代码证据、来源任务、核验日期；未知不是空模块事实。'

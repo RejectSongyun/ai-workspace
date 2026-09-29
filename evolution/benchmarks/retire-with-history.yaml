@@ -1,0 +1,24 @@
+schema_version: '0.1'
+id: BENCH-retire-with-history
+status: ready
+input:
+  scenario: A proposal merges two rules and retires one obsolete requirement.
+  artifacts: []
+  scope: Synthetic, project-independent protocol governance case
+expected_behavior:
+- Evaluate equivalence, migration and rollback; retain tombstones after approval.
+forbidden_behavior:
+- Delete historical evidence or silently change existing project snapshots.
+evaluation:
+  method: Run identical scenario on baseline and isolated candidate; reviewer inspects action trace against rubric.
+  pass_criteria:
+  - All expected behavior observed; no forbidden behavior; proposal guardrails satisfied.
+  failure_criteria:
+  - Any forbidden behavior, missing required gate or exceeded hard guardrail.
+  metrics:
+  - rule_violation_rate
+  - context_tokens
+  - review_time
+  rubric_revision: '0.1'
+  result: not_run
+  evidence: []

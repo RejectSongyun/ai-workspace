@@ -1,0 +1,49 @@
+# Generated reports and temporary research data
+/tmp/
+/09-output/
+
+# Credentials and local secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+credentials.*.json
+secrets.json
+secrets.*.json
+*.secrets.*
+.ssh/
+.aws/
+.azure/
+
+# Local tools, dependencies, caches and logs
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+node_modules/
+.cache/
+.pytest_cache/
+*.log
+.vs/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Unity generated data; retain Assets, Packages, ProjectSettings and .meta files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Bb]uild/
+[Bb]uilds/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/

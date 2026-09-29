@@ -1,0 +1,85 @@
+{
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "scope": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "claim": {
+      "type": "string"
+    },
+    "source_task": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "approval": {
+      "type": "object",
+      "required": [
+        "reviewed_by",
+        "reviewed_at",
+        "approval_reference",
+        "approved_content"
+      ]
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "deprecated",
+        "superseded",
+        "stale"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_paths",
+        "source_revision_or_hash",
+        "observed_at",
+        "producer"
+      ],
+      "properties": {
+        "source_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "producer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observed_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_revision_or_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "source_task",
+    "scope",
+    "claim",
+    "evidence",
+    "approval",
+    "provenance"
+  ]
+}

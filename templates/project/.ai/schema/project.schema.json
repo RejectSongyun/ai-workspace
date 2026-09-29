@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "name": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "protocol_path": {
+      "type": "string"
+    },
+    "protocol_version": {
+      "const": "0.2"
+    },
+    "context_index": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ]
+    },
+    "technology": {
+      "type": "object",
+      "description": "Optional opaque project metadata"
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "protocol_version",
+    "name",
+    "status",
+    "protocol_path",
+    "context_index"
+  ]
+}

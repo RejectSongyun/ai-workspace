@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^(high_context_cost|cross_scope|cross_component|human_correction|repeated_failure|architecture_or_constraint_contact|context_resolution_failure|unexpected_discovery|high_reasoning_cost|protocol_friction|x_[a-z0-9_]+)$"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "estimated_value": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protocol": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "project",
+        "protocol"
+      ],
+      "additionalProperties": false
+    },
+    "requested_reflection_budget": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision_or_sha256": {
+            "type": "string",
+            "minLength": 1
+          },
+          "event_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "reference",
+          "revision_or_sha256",
+          "event_id",
+          "claim"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "budget_decision": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "granted",
+            "denied"
+          ]
+        },
+        "granted_level": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "R3"
+          ]
+        },
+        "decider": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authority_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "caps": {
+          "type": "object",
+          "properties": {
+            "max_extra_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_elapsed_seconds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_tool_calls": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "max_extra_tokens",
+            "max_elapsed_seconds",
+            "max_tool_calls"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "status",
+        "granted_level",
+        "decider",
+        "authority_reference",
+        "reason",
+        "caps"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "granted"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decider": {
+                "type": "string",
+                "minLength": 1
+              },
+              "authority_reference": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "granted_level": {
+                "const": "R0"
+              },
+              "caps": {
+                "properties": {
+                  "max_extra_tokens": {
+                    "const": 0
+                  },
+                  "max_elapsed_seconds": {
+                    "const": 0
+                  },
+                  "max_tool_calls": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "granted_level": {
+                "enum": [
+                  "R1",
+                  "R2",
+                  "R3"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "caps": {
+                "properties": {
+                  "max_extra_tokens": {
+                    "minimum": 1
+                  },
+                  "max_elapsed_seconds": {
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "task",
+    "type",
+    "reason",
+    "estimated_value",
+    "requested_reflection_budget",
+    "evidence",
+    "budget_decision"
+  ],
+  "additionalProperties": false
+}

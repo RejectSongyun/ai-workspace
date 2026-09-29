@@ -1,0 +1,18 @@
+protocol_version: 0.2.2
+name: UNCONFIGURED
+status: draft
+description: ''
+root: ..
+path_base: repository_root_except_root_field
+protocol_path: .ai/protocol
+owners: []
+source_roots: []
+test_roots: []
+commands: {}
+context_index: .ai/index/catalog.yaml
+task_root: .ai/tasks
+knowledge_root: .ai/knowledge
+business_rules: .ai/rules/business.md
+extensions: {}
+notes: 实际技术、模块、目录和命令由项目证据确认；空值表示未知。
+# technology 可省略；仅为项目元数据，不参与协议选择或门禁。

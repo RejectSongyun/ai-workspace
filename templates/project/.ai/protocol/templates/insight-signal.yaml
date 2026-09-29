@@ -1,0 +1,23 @@
+schema_version: '0.1'
+task: TASK-ID
+type: unexpected_discovery
+reason: 'UNSET: 可复用价值与成本理由'
+estimated_value:
+  project: 'UNSET: 预期项目收益或 none'
+  protocol: 'UNSET: 预期机制收益或 none'
+requested_reflection_budget: R1
+evidence:
+- reference: UNSET
+  revision_or_sha256: UNSET
+  event_id: UNSET
+  claim: 'UNSET: 事实与推断分开'
+budget_decision:
+  status: pending
+  granted_level: R0
+  decider: null
+  authority_reference: null
+  reason: 尚未授予；模板不是批准
+  caps:
+    max_extra_tokens: 0
+    max_elapsed_seconds: 0
+    max_tool_calls: 0

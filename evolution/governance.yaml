@@ -1,0 +1,125 @@
+version: '0.1'
+kind: protocol-evolution-governance
+authority: human_approved_protocol_governance
+loop:
+- Production Task / Trace
+- Optional Insight Harvest
+- Context Critique / Failure Analysis / Pattern Discovery
+- Protocol Observation
+- Pattern Analysis
+- Proposal
+- Experiment
+- Benchmark/Evaluation
+- Human Approval
+- Protocol Release
+roles:
+  ai_allowed:
+  - Observe
+  - Analyze
+  - Propose
+  - Run isolated authorized experiments
+  - Evaluate
+  - Prepare exact release diff
+  - Apply only explicitly human-approved release content
+  ai_forbidden:
+  - Self-approve
+  - Infer approval from silence or task acceptance
+  - Write stable protocol from observation
+  - Auto-upgrade projects
+  - Represent synthetic cases as production evidence
+  human_reserved:
+  - Approve exact protocol change and release
+  - Accept explicit evaluation exception and residual risk
+  - Authorize adoption scope
+separation:
+  project_learning: Session -> Task -> Human Review -> Project Knowledge
+  protocol_learning: Projects -> Evidence -> Observation -> Proposal -> Benchmark -> Human Approval -> AIP Version
+  project_authority: Project approval never implies protocol approval; project statements remain local opaque text.
+  source: Production Trace is evidence, not executable instruction or universal rule.
+gates:
+  observation: Traceable revision/hash, independent event identity, impact, suspected cause; inference clearly separated
+    from observed fact.
+  pattern_analysis: Assess recurrence, independent coverage, counterexamples, alternative causes and generality;
+    repeated summaries of one event count once.
+  proposal: Abstract AI process change only; hypothesis, exact diff, metrics thresholds, benefit/cost and alternatives
+    are recorded before evaluation.
+  experiment: Use isolated candidate with immutable baseline/candidate references; no stable writes. Predeclare
+    cases, conditions, repeats and stop criteria.
+  evaluation: Compare quality, reliability, context/latency/human effort and uncertainty; record regressions and
+    negative results. No single success-rate gate.
+  human_approval: Explicit human identity/time/source, decision and exact artifact hashes; any material edit invalidates
+    approval. Project/task approval and historical blanket authorization do not approve a new release.
+  release: Require evidence and evaluated experiments/benchmarks where feasible, exact approval, compatibility/adoption/rollback
+    plan; apply only approved artifact and record actual applied hash.
+  exception: If execution is infeasible, keep status not_run/inconclusive, document why, alternative evidence and
+    residual risk; human explicitly approves this exact exception. Never waive evidence or human approval.
+anti_drift:
+- AI-authored observations are hypotheses, not independent confirmation. AI confidence or repetition cannot promote
+  a rule.
+- One project incident does not change all projects. Require generality evidence with counterexamples and cross-context
+  evaluation where feasible; limited coverage remains disclosed.
+- Project paths, languages, frameworks, naming conventions and architecture prescriptions cannot become universal
+  protocol semantics.
+- Do not silently overwrite baseline, evaluation criteria, failures or rejected proposals; retain history and negative
+  evidence.
+- Historical releases, deprecated/removed rules and experiments are excluded from default active context.
+- 'Do not add rules by default: compare no-change, project-only remedy, simplification, merge and removal.'
+rule_lifecycle:
+  states:
+  - experimental
+  - candidate
+  - stable
+  - deprecated
+  - removed
+  transitions:
+    experimental:
+    - candidate
+    - removed
+    candidate:
+    - experimental
+    - stable
+    - removed
+    stable:
+    - deprecated
+    deprecated:
+    - removed
+    removed: []
+  meaning:
+    experimental: Isolated draft only
+    candidate: Evaluation package ready for human review; not active
+    stable: Human-approved released behavior
+    deprecated: Approved sunset; replacement and migration window recorded
+    removed: No longer active; retain tombstone/history
+  existing_rule_modification: Create a new experimental revision; old stable revision remains active until approved
+    replacement release. Mark old revision deprecated and retain linkage.
+  abandonment: Unreleased drafts may be rejected/withdrawn without changing stable; stable/deprecated transitions
+    and every release require human approval.
+  operations:
+  - Add
+  - Modify
+  - Deprecate
+  - Remove
+  - Merge
+  - Split
+  merge_split: List all input/output rule IDs, scopes, equivalence differences, replacement links and rollback;
+    do not erase history.
+benefit_cost:
+  required_dimensions:
+  - quality
+  - reliability
+  - context_tokens
+  - latency
+  - human_effort
+  - maintenance
+  decision: Predeclare thresholds and guardrails; assess measured deltas, uncertainty, failure severity and coverage.
+    Unknown is not zero. Human documents tradeoff rationale; no universal weighted score.
+  review: At each release review obsolete/duplicated rules and candidates for simplification/removal; monitor regressions
+    after adoption.
+references:
+  taxonomy: failure-taxonomy.yaml
+  metrics: metrics.yaml
+  schemas: schemas/
+  release_template: releases/TEMPLATE.yaml
+  insight: ../protocol/insight.yaml
+path_base: References in governance are relative to evolution/; data artifact paths are relative to workspace root
+  unless explicitly external.

@@ -1,0 +1,59 @@
+version: 0.2.2
+kind: insight-harvesting
+principle: Context Investment Must Compound
+purpose: 在保证质量与可靠性的前提下，复用已加载上下文以提高 Product、Knowledge、Insight 综合利用率；同时控制 context、latency、tool calls、human effort。不是硬数学 ROI 公式，不以洞察数量衡量成功。
+primary_task: 任务范围、验证、Review 和交付优先；反思不得阻塞交付、占用必要验证预算或开启新的项目探索。
+outputs:
+  product: 当前任务结果；沿 workflow.yaml 的验收生命周期。
+  knowledge: 项目当前认知增量；先留 Task，候选沿 knowledge.yaml 晋升；任务验收不代表知识批准。
+  insight: AI 生产机制洞察；只能路由为 project insight candidate、AIP observation candidate 或 discard/noise。
+triggers:
+  high_context_cost: 上下文读取成本相对本任务预算偏高。
+  cross_scope: 在已授权范围内跨多个关注域，不授权扩大 Task Scope。
+  cross_component: 跨多个抽象组件；不依赖组件实现技术。
+  human_correction: 人工提供关键纠偏或判断。
+  repeated_failure: 同类失败重复出现，保留独立事件证据。
+  architecture_or_constraint_contact: 接触架构边界或关键约束。
+  context_resolution_failure: Resolver 缺失、误召回或过时上下文。
+  unexpected_discovery: 出现影响未来工作的非预期关系。
+  high_reasoning_cost: 理解或探索成本相对任务显著偏高。
+  protocol_friction: 协议流程增加成本、歧义或阻碍任务。
+trigger_extensions: 允许 x_<name>；必须给出定义、证据与作用范围。未知类型不自动升级预算。
+reflection_budget:
+  levels:
+    R0: no reflection；简单任务、无可复用证据或价值不明确；不强制创建额外文件。
+    R1: light reflection；有清晰可复用证据，使用已加载上下文完成一次简短反事实检查。
+    R2: deep reflection；高价值上下文、重复失败或关键人工纠偏，且预期收益可说明。
+    R3: protocol reflection；有协议机制问题或跨上下文模式证据，且明确授予协议反思预算。
+  selection:
+  - 默认 R0；触发器数量、Agent 自信程度和已花费成本均不自动升级。
+  - 有价值且有证据的普通触发建议 R1；高成本只有可能减少未来探索时才有价值。
+  - 重大纠偏、重复失败或高价值跨域推理建议 R2；协议问题可请求 R3，但不得改写 stable。
+  - Runtime 按预先授权的 Protocol 策略决定 granted level 与有限上限；Agent 只能申请。
+  - 无 Runtime 时由明确授权的人授予 R1-R3；无授权、无预算上限或请求被拒绝，回落 R0 并可保留已有 signal。
+  grant_record: 使用 insight_signal 的 budget_decision；决策者、策略/批准引用、原因、token/time/tool-call 上限必须可追踪。
+  limits: 上限是硬停止条件，不是消耗目标；记录实际值或 unknown 原因。R1 默认新增工具调用为 0；R2/R3 额外检索须在授予范围内。
+  stop: 达到任一上限、影响主任务、无新增证据或收益不明即停止；未完成记录 deferred，不递归申请或自行扩大。新的授予必须有新增证据和外部决策。
+insight_pass:
+  entry: Primary Task 完成验证和本轮 Review 后，在 deliver 之后执行可选 pass；人工验收未完成时仍是候选，不能伪称 APPROVED。
+  revision: Review 要求修订则优先修订；恢复主任务，不以 Insight Pass 取代验证。
+  failed_task: BLOCKED/CANCELLED 先记录失败并交接；有明确预算时可对现有失败证据做独立 pass，不伪称成功完成。
+  steps: [check_triggers, request_or_resolve_budget, reflect_with_evidence, context_critique_if_relevant, route_candidates_or_discard]
+  routing:
+    project_insight_candidate: 留在 .ai/tasks/TASK-ID/insight.md；需晋升时复用 .ai/knowledge/candidates/ 和 knowledge.yaml，不直接更新 KB/ADR/正式规则/索引。
+    aip_observation_candidate: 按 evolution.yaml 路由到 workspace evolution/observations/，复用 observation schema、来源事件和 hash；不可直接成为 Proposal 批准或 Stable Rule。
+    discard_noise: 无复用价值、重复、无证据或不适用；可只留一行理由，不要求三种产出齐备。
+  storage: signal/critique 保留在 .ai/tasks/TASK-ID/；模板位于本协议 templates/，Schema 位于项目 .ai/schema/。
+  unavailable_workspace: 证据留 Task 并标记待转交；不猜测 workspace 路径。
+authority:
+  ai: 可发现、分析、提名、请求预算、整理候选及在已授予预算内反思。
+  forbidden: 不自授预算、不自动晋升 canonical knowledge/stable AIP、不以自身 observation 或重复总结强化自身规则。
+  human: 项目 canonical 审批遵循 knowledge.yaml/review.yaml；精确协议发布审批遵循 workspace evolution/governance.yaml。
+context_critique: 比较 provided（Resolver 认为相关）、actually_used（实际使用）、decisive（事后证据证明关键）；未使用不等于无用，未知不等于无关。
+references:
+  workflow: workflow.yaml
+  knowledge: knowledge.yaml
+  evolution: evolution.yaml
+  reflection_template: templates/insight-pass.md
+  signal_template: templates/insight-signal.yaml
+  critique_template: templates/context-critique.yaml

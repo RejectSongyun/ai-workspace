@@ -1,0 +1,57 @@
+schema_version: '0.1'
+id: PROP-TEMPLATE
+status: draft
+based_on:
+- path: UNSET
+  revision_or_sha256: UNSET
+hypothesis: 'UNSET: falsifiable improvement'
+change:
+  operation: Add
+  input_rule_ids: []
+  output_rule_ids:
+  - RULE-UNSET
+  lifecycle: experimental
+  statement: 'UNSET: abstract collaboration behavior'
+  exact_diff:
+    path: UNSET
+    revision_or_sha256: UNSET
+  benefit:
+    quality: 'UNSET: expected delta, evidence and uncertainty'
+    reliability: 'UNSET: expected delta, evidence and uncertainty'
+    context_tokens: 'UNSET: expected delta, evidence and uncertainty'
+    latency: 'UNSET: expected delta, evidence and uncertainty'
+    human_effort: 'UNSET: expected delta, evidence and uncertainty'
+    maintenance: 'UNSET: expected delta, evidence and uncertainty'
+  cost:
+    quality: 'UNSET: expected delta, evidence and uncertainty'
+    reliability: 'UNSET: expected delta, evidence and uncertainty'
+    context_tokens: 'UNSET: expected delta, evidence and uncertainty'
+    latency: 'UNSET: expected delta, evidence and uncertainty'
+    human_effort: 'UNSET: expected delta, evidence and uncertainty'
+    maintenance: 'UNSET: expected delta, evidence and uncertainty'
+  alternatives:
+  - no change
+  - project-only remedy
+  - simplify existing rule
+  compatibility: UNSET
+  rollback: UNSET
+metrics:
+- id: task_success_rate
+  baseline: null
+  candidate: null
+  threshold_or_budget: 'UNSET: preregister with all guardrails'
+  sample_size: 0
+  uncertainty: not measured
+  measurement_reference: null
+guardrails:
+- 'UNSET: quality and reliability floor; context/latency/human-effort budgets'
+evaluation_plan: 'UNSET: cases, controls, coverage and negative examples'
+human_approval:
+  decision: pending
+  reviewer: null
+  reviewed_at: null
+  source_reference: null
+  approved_artifact_sha256: null
+  scope: 'UNSET: precise release scope'
+  rationale: null
+  exception_approved: false

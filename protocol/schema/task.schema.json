@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "goal": {
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^TASK-",
+      "type": "string"
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected"
+          ]
+        }
+      },
+      "required": [
+        "decision"
+      ]
+    },
+    "acceptance": {
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "READY",
+        "RUNNING",
+        "BLOCKED",
+        "AI_COMPLETED",
+        "REVIEW",
+        "APPROVED",
+        "REVISION",
+        "CLOSED",
+        "CANCELLED"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "goal",
+    "acceptance",
+    "risk",
+    "review"
+  ]
+}

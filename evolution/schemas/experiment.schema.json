@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "running",
+        "completed",
+        "inconclusive",
+        "stopped"
+      ]
+    },
+    "proposal": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_or_sha256": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "path",
+        "revision_or_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "protocol_candidate": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_or_sha256": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "path",
+        "revision_or_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "baseline": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_or_sha256": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "path",
+        "revision_or_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision_or_sha256": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "path",
+          "revision_or_sha256"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "repeats": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "enum": [
+            "not_run",
+            "pass",
+            "fail",
+            "inconclusive"
+          ]
+        },
+        "baseline_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "revision_or_sha256": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "revision_or_sha256"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "candidate_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "revision_or_sha256": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "revision_or_sha256"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "baseline": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "candidate": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "threshold_or_budget": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sample_size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "uncertainty": {
+                "type": "string",
+                "minLength": 1
+              },
+              "measurement_reference": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "baseline",
+              "candidate",
+              "threshold_or_budget",
+              "sample_size",
+              "uncertainty",
+              "measurement_reference"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "evaluator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evaluated_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "outcome",
+        "baseline_results",
+        "candidate_results",
+        "metrics",
+        "failures",
+        "limitations",
+        "evaluator",
+        "evaluated_at"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "status",
+    "proposal",
+    "protocol_candidate",
+    "baseline",
+    "test_cases",
+    "controls",
+    "repeats",
+    "stop_conditions",
+    "result"
+  ],
+  "additionalProperties": false
+}

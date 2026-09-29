@@ -1,0 +1,39 @@
+version: 0.2.2
+kind: ai-project-protocol
+definition: AIP 不规定软件应该怎么写；AIP 规定 AI 应该怎样认识、修改和记忆一个软件项目。
+enforcement: agent_instructions_and_human_review
+layers:
+  protocol: 定义 AI 的认识、执行、检索、记忆和审查过程，不解释项目技术语义。
+  project_model: 项目技术元数据、模块、架构、规则、Feature、ADR、索引和知识。
+  source_reality: 实际代码、配置、测试、构建及 Git 记录，是实现事实来源。
+principles:
+- 不假定项目结构；模板仅规定协作记录的位置，不规定源码布局。
+- Context is Retrieved, Not Loaded
+- 优先 Index；索引缺失或过时，按任务范围逐步扩大源码探索并记录原因。
+- Source Code / Source Reality 是当前实现事实来源。
+- Human-approved Decision / Override 是设计意图最高权威。
+- 修改前确定 Task Scope，加载相关 Architecture / Rule / ADR；不得无依据扩大范围。
+- AI 推断不得覆盖人工 canonical knowledge。
+- Task 信息不得自动晋升长期知识；长期知识必须有 provenance。
+- Source 变化后生成知识可 stale；使用前重新核验。
+- Approval 前 AI 结果属于 candidate state。
+- Architecture / Rule / ADR 修改需要更高等级审核。
+- Preserve History, Minimize Context
+- Context Investment Must Compound — 以 insight.yaml 定义的有界 Insight Harvest 复用上下文；Primary Task 优先。
+authority:
+  implementation_facts: source_reality
+  design_intent: human_approved_decision_or_scoped_override
+  boundary: 不覆盖平台约束；人工指令在授权范围内生效，不伪造批准，不自动永久化。
+conflicts:
+  code: 代码与批准设计冲突时记录偏差；设计不能改写现有事实，代码不能自动推翻设计。
+  human_override: 记录范围、理由、来源和被替代项；本次纠正不自动成为长期规则。
+  unresolved: 暂停依赖冲突的动作；继续独立且已授权工作。
+knowledge_promotion: explicit_human_approval_required
+includes:
+- workflow.yaml
+- knowledge.yaml
+- context.yaml
+- review.yaml
+- risk.yaml
+- evolution.yaml
+- insight.yaml

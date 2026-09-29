@@ -1,0 +1,22 @@
+id: TASK-ID
+status: DRAFT
+goal: ''
+scope: []
+out_of_scope: []
+acceptance: []
+risk: low
+plan: []
+changes: []
+verification: []
+limitations: []
+rollback: ''
+delivery:
+  files: []
+  commit: null
+review:
+  decision: pending
+  reviewer: null
+  timestamp: null
+  scope: null
+  evidence_reference: null
+knowledge_candidates: []
